@@ -5,25 +5,26 @@ using UnityEngine;
 
 public class Build_A_Baddie : MonoBehaviour
 {
-    //Put your own functions here!
+    public float speed = 2f;         // Speed of the enemy's movement
+    public float amplitude = 1f;     // Amplitude of the sine wave pattern
+    public float frequency = 1f;     // Frequency of the sine wave pattern
+
+    private Vector3 startPosition;
+
     public BadGuyBrain badGuyBrain;
 
     private void Start()
     {
         badGuyBrain = GetComponent<BadGuyBrain>();
+        startPosition = transform.position;
     }
 
     private void Update()
     {
-        if (Vector3.Distance(this.gameObject.transform.position, badGuyBrain.player.transform.position) <= 2.0f)
-        {
-            Explode();
-        }
-    }
+        float xPosition = startPosition.x + Mathf.Sin(Time.time * frequency) * amplitude;
+        float yPosition = startPosition.y - Time.time * speed;
 
-    public void Explode()
-    {
-        badGuyBrain.player.GetComponent<CharacterBrain>().health--;
-        badGuyBrain.Despawn();
+        // Update the enemy's position
+        transform.position = new Vector3(xPosition, yPosition, transform.position.z);
     }
 }

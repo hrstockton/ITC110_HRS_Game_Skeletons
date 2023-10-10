@@ -48,7 +48,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (currentScore >= Spawner.spawner.entitiesToSpawn[Level].GetComponent<BadGuyBrain>().pointVal * Spawner.spawner.currSpawnManagerValues.prefabsToSpawn[Level])
+        int curPointVal = Spawner.spawner.entitiesToSpawn[Level-1].GetComponent<BadGuyBrain>().pointVal;
+        if (currentScore >=  curPointVal * Spawner.spawner.currSpawnManagerValues.prefabsToSpawn[0])
         {
             currentScore = 0;
             LevelUp();
